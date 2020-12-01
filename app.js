@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const Todo = require('./models/todo')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 const port = 3000
 
 // 啟動引擎 express-handlebars
@@ -12,6 +13,9 @@ app.set('view engine', 'hbs')
 
 // body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// RESTFUL 路由重構使用 method-override
+app.use(methodOverride('_method'))
 
 // 資料庫 mongoDB
 // 設定連線到 mongoDB
@@ -63,7 +67,7 @@ app.get('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/todos/:id/edit', (req, res) => {
+app.put('/todos/:id', (req, res) => {
   const id = req.params.id
   const { name, isDone } = req.body
   return Todo.findById(id)
@@ -76,7 +80,7 @@ app.post('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/todos/:id/delete', (req, res) => {
+app.delete('/todos/:id', (req, res) => {
   const id = req.params.id
   return Todo.findById(id)
     .then(todo => todo.remove())
