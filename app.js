@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes')
 const port = 3000
+require('./config/mongoose')
 
 // 啟動引擎 express-handlebars
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
