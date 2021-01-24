@@ -1,4 +1,5 @@
 const express = require('express')
+const session = require('express-session')
 const app = express()
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
@@ -12,6 +13,13 @@ require('./config/mongoose')
 // 啟動引擎 express-handlebars
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+
+// 設定 session 密鑰
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
