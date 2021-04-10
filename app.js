@@ -1,14 +1,13 @@
 const express = require('express')
 const session = require('express-session')
-const app = express()
-const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
-const Todo = require('./models/todo')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes')
 const port = 3000
 require('./config/mongoose')
+
+const app = express()
 
 // 啟動引擎 express-handlebars
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
